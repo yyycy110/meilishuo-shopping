@@ -1,5 +1,9 @@
 @import "./normalize.css";
 
+body{
+  background-color: #F5F5F5;
+}
+
 /*:root -> 获取根元素html*/
 :root {
   --color-text: #666;

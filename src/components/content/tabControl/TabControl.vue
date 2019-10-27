@@ -31,13 +31,13 @@
                 this.$emit('tabClick',index)
             }
         }
-
     }
 
 </script>
 
 <style scoped>
     .tabcontrol {
+        background-color: #fff;
         display: flex;
         flex-direction: row;
         justify-content: space-around;

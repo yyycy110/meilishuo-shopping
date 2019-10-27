@@ -19,9 +19,9 @@
                 type: Number,
                 default: 0
             },
-            pullupload:{
-                type:Boolean,
-                default:true
+            pullupload: {
+                type: Boolean,
+                default: true
             }
         },
         data() {
@@ -35,23 +35,38 @@
                 this.scroll = new BScroll(this.$refs.wrapper, {
                     click: true,
                     probeType: this.probeType,
-                    pullUpLoad:this.pullupload
+                    pullUpLoad: this.pullupload
 
-             
+
                 })
-                /* 监听上拉事件 */
-                this.scroll.on("pullingUp",() =>{
-                    this.$emit("pullingUp")
-                })
+
+
 
                 /* 监听滚动 */
-                this.scroll.on('scroll',(position) =>{
-                   this.$emit('tabScroll',position)
-                })
+                if (this.probeType === 2 || this.probeType === 3) {
+                    this.scroll.on('scroll', (position) => {
+                        this.$emit('tabScroll', position)
+                    })
+                }
+
+                if (this.pullupload) {
+                    /* 监听上拉事件 */
+                    this.scroll.on('pullingUp', () => {
+                        //监听滚动底部
+
+                         this.$emit('pullingUp') 
+                    })
+                }
+
+
+                this.scroll.refresh();
             })
-          
+
         },
         methods: {
+            finishPullUp(){
+                this.scroll && this.scroll.finishPullUp();
+            }
 
         }
 

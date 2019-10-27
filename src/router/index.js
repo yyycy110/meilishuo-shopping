@@ -8,7 +8,8 @@ const Home = () => import('../views/home/Home.vue')
 const Category = () => import("../views/category/CateGory.vue")
 const Cart = () => import("../views/cart/cart.vue")
 const Profile = () => import("../views/profile/profile.vue")
-
+/* 详情页 */
+const detail = () => import("../views/detail/Detail.vue")
 
 
 Vue.use(VueRouter)
@@ -18,26 +19,30 @@ Vue.use(VueRouter)
 //创建Router
 const routes = [
 
-{
-    path:'/',
-    redirect:"/home"
-},
-{
-    path:"/home",
-    component:Home
-},
-{
-    path:"/category",
-    component:Category
-},
-{
-    path:"/cart",
-    component:Cart
-},
-{
-    path:"/profile",
-    component:Profile
-},
+    {
+        path: '/',
+        redirect: "/home"
+    },
+    {
+        path: "/home",
+        component: Home
+    },
+    {
+        path: "/category",
+        component: Category
+    },
+    {
+        path: "/cart",
+        component: Cart
+    },
+    {
+        path: "/profile",
+        component: Profile
+    },
+    {
+        path: "/detail/:iid",
+        component: detail
+    }
 
 
 
@@ -46,7 +51,7 @@ const routes = [
 
 const router = new VueRouter({
     routes,
-    mode:"history"
+    mode: "history"
 })
 
 export default router;

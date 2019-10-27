@@ -1,5 +1,5 @@
 <template>
-  <swiper :options="swiperOption" >
+  <swiper :options="swiperOption" class="swiper-item">
     <!-- slides -->
      <slot></slot>
    
@@ -21,19 +21,23 @@
       return {
         swiperOption: {
           pagination: '.swiper-pagination',
-          loop:true
+          loop:true,
+          autoplay:true
         },
       }
     }
   }
 </script>
 
-<style>
+<style >
 
 .slide-img{
   width: 100%;
   height: 100%;
 }
+
+
+
 </style>
  
  
