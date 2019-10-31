@@ -9,8 +9,8 @@
                 <img src="~assets/img/common/back.svg" alt="">
             </div>
             <div slot="center">
-                <span v-for="(item,index) in titles" :class="{active:index === currentIndex}"
-                    @click="NavCon(index)">{{item}}</span>
+                <span v-for="(item,index) in titles" :class="{active:index == currentIndex}"
+                    @click="NavCon(index)" :key="index">{{item}}</span>
 
             </div>
         </nav-bar>
@@ -41,8 +41,8 @@
         methods: {
             /* 这个index呢 是v-for (item,index)的index */
             NavCon(index) {
-                this.currentIndex = index
-                console.log(index)
+               
+                this.$emit('controlNav',index)
             },
             blackClick() {
                 this.$router.back();

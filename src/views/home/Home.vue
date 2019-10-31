@@ -11,6 +11,7 @@
     </nav-bar>
     <tab-control  class="tab-control" ref="tabControl1" :titles="['流行','新款','精选']" @tabClick="tabClick" v-show="isTabFixed">
     </tab-control>
+    
 
 
     <!-- 进行滚动的区域  -->

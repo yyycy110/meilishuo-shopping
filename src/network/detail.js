@@ -36,7 +36,13 @@ export class shop{
     this.shopInfo = shopInfo;
     this.score = score;
   }
+
+  
 }
+
+
+
+
 
 
 
