@@ -9,6 +9,7 @@
             <detail-shop :shop="shop"></detail-shop>
             <detail-info-mes :detailInfo="detailInfo"></detail-info-mes>
             <detail-params-info :itemParams="itemParams" />
+            <detail-comment :commentInfo="comment"></detail-comment>
         </scroll>
 
 
@@ -35,6 +36,8 @@
     import DetailInfoMes from './ChilComps/DetailInfo.vue'
     /* 商品参数 信息 */
     import DetailParamsInfo from './ChilComps/DetailParamsInfo.vue'
+    /* 商品评论 */
+    import DetailComment from './ChilComps/DetailCommentInfo.vue'
 
 
     /* 导入 网络请求 */
@@ -77,7 +80,8 @@
             DetailBaseInfo,
             DetailShop,
             DetailInfoMes,
-            DetailParamsInfo
+            DetailParamsInfo,
+            DetailComment
         },
         created() {
             /* 获取参数iid iid 是通过url传过来的 */
@@ -104,9 +108,10 @@
                     /* 商品的参数信息 */
                     this.itemParams = data.itemParams
                     /* 评论信息 */
-                    this.comment = data.rate
-
+                    this.comment = data.rate.list
+                    console.log(this.comment)
                     console.log(res)
+
 
                 })
             },
@@ -153,10 +158,10 @@
         overflow: hidden;
         bottom: 51px;
     }
-
+/* 置顶图标的位置 */
     .arrive-top {
         position: absolute;
         right: 3px;
-        bottom: 52px;
+        bottom: 70px;
     }
 </style>

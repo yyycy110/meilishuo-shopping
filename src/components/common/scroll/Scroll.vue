@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper" ref="wrapper">
-git        <div class="content">
+       <div class="content">
             <slot></slot>
         </div>
     </div>
