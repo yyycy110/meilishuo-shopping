@@ -1,15 +1,18 @@
 <template>
     <div class="cart-list">
-        <div class="list" v-for="(item,index) in getCartList" :key="index">
+        <div class="list" v-for="item in getCartList">
+            <div>
+                <check-button @BtnClick="ClickItem" :isChecked="ifcheck"></check-button>
+            </div>
             <img :src="item.image" alt="">
             <div class="content" style="width: 220px;">
                 <p class="title">{{item.title}}</p>
                 <p class="desc" style="color: gray;font-size: 12px;">{{item.desc}}</p>
                 <div>
-                        <p class="price">{{item.price}}</p>
-                        <p class="count">x{{item.count}}</p>    
+                    <p class="price">{{item.price}}</p>
+                    <p class="count">x{{item.count}}</p>
                 </div>
-               
+
             </div>
 
         </div>
@@ -17,29 +20,42 @@
 </template>
 
 <script>
+
+    import CheckButton from 'components/common/checkButton/CheckButton'
     import { mapGetters } from 'vuex'
     export default {
         data() {
             return {
-
+               ifcheck:true
             }
+        },
+        components: {
+            CheckButton
         },
 
         computed: {
             ...mapGetters(['getCartList'])
         },
-        
+        methods: {
+            ClickItem(){
+                console.log('点击了按钮')
+                if(this.ifcheck){
+                 this.ifcheck=false
+                }else{
+                   this.ifcheck=true
+                }
+
+            }
+        }
     }
 </script>
 
 <style scoped>
     .list {
         border-bottom: 1px solid #f3f5f7;
-
-        
         display: flex;
+        flex-direction: row;
         align-items: center;
-        
         height: 110px;
     }
 
@@ -53,16 +69,21 @@
         margin-left: 10px;
     }
 
-    .title,.desc {
+    .title,
+    .desc {
         margin-bottom: 10px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
-    .price{
+
+    .price {
         color: rosybrown;
     }
-    .count{float: right;}
+
+    .count {
+        float: right;
+    }
 
     img {
         display: inline;

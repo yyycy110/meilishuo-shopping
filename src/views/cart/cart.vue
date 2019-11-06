@@ -8,7 +8,6 @@
         <!-- 商品列表 -->
         <scroll class="content" ref="scroll">
             <cart-list ></cart-list>
-       
             <li></li>
             <li></li>
             <li></li>
