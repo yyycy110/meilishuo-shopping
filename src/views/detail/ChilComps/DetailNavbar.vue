@@ -41,7 +41,7 @@
         methods: {
             /* 这个index呢 是v-for (item,index)的index */
             NavCon(index) {
-               
+                 this.currentIndex = index
                 this.$emit('controlNav',index)
             },
             blackClick() {

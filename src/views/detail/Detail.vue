@@ -1,6 +1,6 @@
 <template>
-    <div id="detail">
-        <detail-navbar @controlNav="updateNav"></detail-navbar>
+    <div class="detail">
+        <detail-navbar @controlNav="updateNav" ref="nav"></detail-navbar>
 
         <scroll ref="scroll" class="content" :probeType="3" :pullupload="true" @tabScroll="tabScroll"
             @pullingUp="loadMore">
@@ -8,11 +8,12 @@
             <detail-base-info :goods="goodsInfo"></detail-base-info>
             <detail-shop :shop="shop"></detail-shop>
             <detail-info-mes :detailInfo="detailInfo"></detail-info-mes>
-            <detail-params-info :itemParams="itemParams" />
-            <detail-comment :commentInfo="comment"></detail-comment>
+            <detail-params-info :itemParams="itemParams" ref="params" />
+            <detail-comment :commentInfo="comment" ref="comment"></detail-comment>
+            <goods-list :goods="recommends" ref="recommend"></goods-list>
         </scroll>
 
-
+         <detail-bottom-bar  @addCart="addToCart" />
         <back-top class="arrive-top" @click.native="backClick" v-show="ifshow" />
     </div>
 </template>
@@ -38,10 +39,14 @@
     import DetailParamsInfo from './ChilComps/DetailParamsInfo.vue'
     /* 商品评论 */
     import DetailComment from './ChilComps/DetailCommentInfo.vue'
-
+    /* 推荐商品 */
+    import GoodsList from 'components/content/goods/GoodsList'
+    import DetailBottomBar from './ChilComps/DetailBottomBar.vue'
 
     /* 导入 网络请求 */
     import { getDetail, Goods, shop } from '../../network/detail.js'
+
+    import { getRecommend } from '../../network/detail.js'
 
 
     export default {
@@ -50,6 +55,7 @@
             return {
                 /* 控制 */
                 ifshow: false,
+                currentIndex:0,  
 
                 /* iid 是从Home页传过来的 通过iid 跳转到对应商品的详情页 */
                 iid: null,
@@ -64,7 +70,10 @@
                 /* 商品参数模块 */
                 itemParams: {},
                 /* 评论模块 */
-                comment: {}
+                comment: {},
+                /* 推荐商品 */
+                recommends: [],
+                themeTopYs: []
 
 
 
@@ -81,20 +90,28 @@
             DetailShop,
             DetailInfoMes,
             DetailParamsInfo,
-            DetailComment
+            DetailComment,
+            GoodsList,
+            DetailBottomBar
         },
         created() {
             /* 获取参数iid iid 是通过url传过来的 */
             this.iid = this.$route.params.iid
 
-            /* 获取轮播图图片 */
-            this.getSwiperData();
+            /* 获取详情数据 */
+            this.getDetailData();
+            /* 获取推荐数据 */
+            this.getDetailRecommend();
+
 
 
 
         },
+
         methods: {
-            getSwiperData() {
+            /* 获取详情数据 */
+            getDetailData() {
+
                 getDetail(this.iid).then(res => {
                     const data = res.result
                     /* 详情页的轮播图 */
@@ -111,20 +128,56 @@
                     this.comment = data.rate.list
                     console.log(this.comment)
                     console.log(res)
+                    /* 第一次获取值不对的原因是因为接口获取的数据还没渲染出来 例如图片 */
+                    this.$nextTick(() => {
+                        this.themeTopYs = [];
+                        this.themeTopYs.push(0)
+                        this.themeTopYs.push(this.$refs.params.$el.offsetTop);
+                        this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
+                        this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
+                        console.log(this.themeTopYs)
+                    })
 
 
                 })
             },
+            /* 获取推荐数据 */
+            getDetailRecommend() {
+                getRecommend().then(res => {
+
+                    this.recommends = res.data.list;
+                    console.log(this.recommends)
+                })
+            },
+            detailImageLoad() {
+                console.log('详情页图片加载成功')
+
+
+
+            },
             updateNav(index) {
+                this.$refs.scroll.scroll.scrollTo(0, -this.themeTopYs[index], 1000)
                 console.log(index)
             },
 
 
             //监听滚动的位置
             tabScroll(position) {
+
                 /* 三元操作符  当滚动的定位 小于一个值的时候 再显示置顶的按钮  */
                 this.ifshow = -position.y > 1000 ? true : false;
                 this.current = -position.y > 13000 ? 1 : 0;
+
+                const positionY = -position.y
+                let length = this.themeTopYs.length;
+                for (let i =0;i<length;i++) {
+                  if((i<length-1 && positionY > this.themeTopYs[i] && positionY < this.themeTopYs[i + 1] ) || (i === length-1&& positionY>this.themeTopYs[i])){
+                    this.currentIndex = i;
+                    this.$refs.nav.currentIndex= this.currentIndex
+                  }
+                    
+                }
+            
 
 
 
@@ -142,6 +195,23 @@
             backClick() {
                 this.$refs.scroll.scroll.scrollTo(0, 0, 1000)
 
+            },
+
+            addToCart(){
+                const product = {}
+                product.image = this.topImages[0]
+                product.title = this.goodsInfo.title
+                product.desc = this.goodsInfo.desc
+                product.price  = this.goodsInfo.price
+                product.iid = this.iid
+
+
+
+                /* 把商品添加到购物车 */
+               /*  this.$store.cartList.push(product) */
+                this.$store.dispatch('addCart',product)
+                console.log("-----点击了")
+
             }
 
         }
@@ -155,13 +225,21 @@
         left: 0;
         right: 0;
         top: 44px;
-        overflow: hidden;
-        bottom: 51px;
+        
+        bottom: 0;
+        background-color: #fff;
     }
-/* 置顶图标的位置 */
+
+    /* 置顶图标的位置 */
     .arrive-top {
         position: absolute;
         right: 3px;
         bottom: 70px;
+    }
+    .detail{
+        height: 100vh;
+        position: relative;
+        z-index: 20;
+        background-color: #fff;
     }
 </style>

@@ -235,7 +235,7 @@
 
 <style scoped>
   .home-nav {
-    background-color: #54FF9F;
+    background-color: pink;
     color: white;
   
   }
