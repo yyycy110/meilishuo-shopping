@@ -1,6 +1,6 @@
 <template>
     <div class="cart-list">
-        <div class="list" v-for="item in getCartList">
+        <div class="list" v-for="(item,index) in getCartList" :key="index">
             <img :src="item.image" alt="">
             <div class="content" style="width: 220px;">
                 <p class="title">{{item.title}}</p>
@@ -27,7 +27,8 @@
 
         computed: {
             ...mapGetters(['getCartList'])
-        }
+        },
+        
     }
 </script>
 

@@ -6,11 +6,112 @@
             <div slot="center">购物车({{cartListlength}})</div>
         </nav-bar>
         <!-- 商品列表 -->
-        <scroll class="content">
+        <scroll class="content" ref="scroll">
             <cart-list ></cart-list>
        
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
       
         </scroll>
+        <cart-bottom></cart-bottom>
 
     </div>
 
@@ -22,8 +123,12 @@
 
 <script>
 
+
+
+
     import NavBar from 'components/common/navbar/NavBar'
     import CartList from './ChilComps/CartList'
+    import CartBottom from './ChilComps/CartBottom'
     import Scroll from 'components/common/scroll/Scroll'
 
 
@@ -40,11 +145,15 @@
         components: {
             NavBar,
             CartList,
-            Scroll
+            Scroll,
+            CartBottom
 
         },
         computed: {
             ...mapGetters(['cartListlength'])
+        },
+        activated(){
+            this.$refs.scroll.refresh();
         }
 
 
