@@ -14,7 +14,13 @@
         },
         methods: {
             BtnClick(){
-                this.$emit('BtnClick')
+               if(this.isChecked){
+                   this.isChecked = false
+               }else{
+                   this.isChecked=true
+               }
+
+               console.log('....点击了按钮')
             }
         }
     }

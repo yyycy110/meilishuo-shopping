@@ -1,59 +1,63 @@
 <template>
   <div class="bottom">
-    <nav-bar>
-      <div slot="left" class="picture">
-        <check-button></check-button>
-        <span>全选</span>
-      </div>
+       
 
-      <div slot="center">总计：{{priceSum}}</div>
-      <div slot="right"><button>结算</button></div>
-
-
-
-    </nav-bar>
+       <div class="left ">
+        <check-button :isChecked="true"></check-button> 
+       </div>
+       <div class="center ">总计：{{}}</div>
+       <div class="right "> <button class="btn">结算</button> </div>
   </div>
 </template>
 
 <script>
-  import NavBar from "components/common/navbar/NavBar";
-  import CheckButton from 'components/common/checkButton/CheckButton'
-  import { mapGetters } from 'vuex'
 
-  export default {
+import CheckButton from "components/common/checkButton/CheckButton";
+import { mapGetters } from "vuex";
 
-    data() {
-      return {
-
-      }
-    },
-    components: {
-      NavBar
-    },
-    computed: {
-      ...mapGetters(['priceSum'])
-    }
-
-  };
+export default {
+  data() {
+    return {};
+  },
+  components: {
+    CheckButton,
+   
+  },
+  computed: {
+    ...mapGetters(["priceSum"])
+  }
+};
 </script>
 
 <style scoped>
-  .bottom {
-    position: fixed;
-    height: 40px;
-    background-color: pink;
-    left: 0;
-    right: 0;
-    bottom: 49px;
-  }
-  img{
-    width: 20px;
-  }
-  .picture{
-    width: 20px;
-    height: 20px;
-    
-    border: 1px solid red;
-    border-radius: 50%;
-  }
+
+.bottom{
+  position: absolute;
+  align-items: center;
+  bottom: 49px;
+  left: 0;
+  right: 0;
+  height: 45px;
+  background-color: pink;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between
+}
+span{
+ 
+}
+
+.btn{
+  width: 100px; /* 宽度 */
+	height: 45px; /* 高度 */
+	border-width: 0px; /* 边框宽度 */
+	border-radius: 3px; /* 边框半径 */
+	background: #FF1493; /* 背景颜色 */
+	cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+	outline: none; /* 不显示轮廓线 */
+	font-family: Microsoft YaHei; /* 设置字体 */
+	color: white; /* 字体颜色 */
+
+
+}
 </style>

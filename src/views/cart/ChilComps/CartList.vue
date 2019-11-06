@@ -1,8 +1,8 @@
 <template>
     <div class="cart-list">
-        <div class="list" v-for="item in getCartList">
-            <div>
-                <check-button @BtnClick="ClickItem" :isChecked="ifcheck"></check-button>
+        <div class="list" v-for="(item,index) in getCartList" :key="index">
+            <div style="margin:0 10px">
+                <check-button :isChecked="true"></check-button>
             </div>
             <img :src="item.image" alt="">
             <div class="content" style="width: 220px;">
@@ -26,7 +26,7 @@
     export default {
         data() {
             return {
-               ifcheck:true
+             
             }
         },
         components: {
@@ -37,15 +37,7 @@
             ...mapGetters(['getCartList'])
         },
         methods: {
-            ClickItem(){
-                console.log('点击了按钮')
-                if(this.ifcheck){
-                 this.ifcheck=false
-                }else{
-                   this.ifcheck=true
-                }
-
-            }
+          
         }
     }
 </script>
@@ -60,7 +52,7 @@
     }
 
     .cart-list {
-        margin: 5px;
+        margin: 5px 0;
     }
 
     .content {
