@@ -151,9 +151,7 @@
         computed: {
             ...mapGetters(['cartListlength'])
         },
-        activated(){
-            this.$refs.scroll.refresh();
-        }
+       
 
 
 

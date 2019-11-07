@@ -11,7 +11,8 @@ Vue.use(Vuex)
 
 /* 创建state */
 const state = {
-    cartList:[]
+    cartList:[],
+    ifchanged:true
 }
 const store = new Vuex.Store({
     /* state 类似data */

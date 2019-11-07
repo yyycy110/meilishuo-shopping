@@ -3,7 +3,7 @@
        
 
        <div class="left ">
-        <check-button :isChecked="true"></check-button> 
+        <check-button :isChecked="ifchanged" @btnClick="controlBtn"></check-button> 
        </div>
        <div class="center ">总计：{{}}</div>
        <div class="right "> <button class="btn">结算</button> </div>
@@ -17,7 +17,9 @@ import { mapGetters } from "vuex";
 
 export default {
   data() {
-    return {};
+    return {
+      ifchanged:true
+    };
   },
   components: {
     CheckButton,
@@ -25,6 +27,15 @@ export default {
   },
   computed: {
     ...mapGetters(["priceSum"])
+  },
+  methods:{
+    controlBtn(){
+      if(this.$store.state.ifchanged){
+       this.$store.state.ifchanged = false
+      }else{
+        this.$store.state.ifchanged = true
+      }
+    }
   }
 };
 </script>

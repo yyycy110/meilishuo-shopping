@@ -2,7 +2,7 @@
     <div class="cart-list">
         <div class="list" v-for="(item,index) in getCartList" :key="index">
             <div style="margin:0 10px">
-                <check-button :isChecked="true"></check-button>
+                <check-button :isChecked="$store.state.ifchanged"></check-button>
             </div>
             <img :src="item.image" alt="">
             <div class="content" style="width: 220px;">

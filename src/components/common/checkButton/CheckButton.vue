@@ -14,6 +14,7 @@
         },
         methods: {
             BtnClick(){
+                this.$emit('btnClick')
                if(this.isChecked){
                    this.isChecked = false
                }else{
