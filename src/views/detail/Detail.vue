@@ -163,6 +163,7 @@
 
             //监听滚动的位置
             tabScroll(position) {
+              
 
                 /* 三元操作符  当滚动的定位 小于一个值的时候 再显示置顶的按钮  */
                 this.ifshow = -position.y > 1000 ? true : false;
@@ -202,14 +203,16 @@
                 product.image = this.topImages[0]
                 product.title = this.goodsInfo.title
                 product.desc = this.goodsInfo.desc
-                product.price  = this.goodsInfo.price
+                product.lowNowPrice  = this.goodsInfo.lowNowPrice
                 product.iid = this.iid
 
 
 
                 /* 把商品添加到购物车 */
                /*  this.$store.cartList.push(product) */
-                this.$store.dispatch('addCart',product)
+                this.$store.dispatch('addCart',product).then(res =>{
+                    console.log(res)
+                })
                 console.log("-----点击了")
 
             }

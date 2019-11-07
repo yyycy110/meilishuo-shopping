@@ -2,14 +2,14 @@
     <div class="cart-list">
         <div class="list" v-for="(item,index) in getCartList" :key="index">
             <div style="margin:0 10px">
-                <check-button :isChecked="$store.state.ifchanged"></check-button>
+                <check-button :isChecked="item.checked" @click.native="checkClick(item)"></check-button>
             </div>
             <img :src="item.image" alt="">
             <div class="content" style="width: 220px;">
                 <p class="title">{{item.title}}</p>
                 <p class="desc" style="color: gray;font-size: 12px;">{{item.desc}}</p>
                 <div>
-                    <p class="price">{{item.price}}</p>
+                    <p class="price">￥{{item.lowNowPrice}}</p>
                     <p class="count">x{{item.count}}</p>
                 </div>
 
@@ -37,8 +37,12 @@
             ...mapGetters(['getCartList'])
         },
         methods: {
-          
+            checkClick(item){
+                console.log("触发了")
+        
+                   item.checked = !item.checked;
         }
+    }
     }
 </script>
 
@@ -70,7 +74,7 @@
     }
 
     .price {
-        color: rosybrown;
+        color:#FF6347;
     }
 
     .count {

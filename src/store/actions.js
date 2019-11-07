@@ -1,6 +1,7 @@
 export default{
     addCart(context,payload){
-        /* 新添加的商品 */
+       return new Promise((resolve,reject) =>{
+              /* 新添加的商品 */
 
      /*    let oldProduct = null;
 
@@ -16,12 +17,15 @@ export default{
         /* 判断oldProduct 如果有这个对象 则在原来的基础上加一就可以 无需添加新的对象到集合里面去 */
         if(oldProduct){
             context.commit("AddCounter",oldProduct)
+            resolve('当前的商品数量+1')
         }else{
             /* 如果没有这个对象 则添加到集合中去  */
             payload.count = 1;
         /*     context.state.cartList.push(payload); */
             context.commit("addTocart",payload)
+            resolve("添加新的商品")
         }
 
+       })
     }
 }

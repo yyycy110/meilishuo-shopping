@@ -1,5 +1,5 @@
 <template>
-    <div class="check-button" :class="{check:isChecked}" @click="BtnClick">
+    <div class="check-button" :class="{check:isChecked}" >
         <img src="../../../assets/img/cart/tick.svg" alt="" >
     </div>
 </template>
@@ -9,20 +9,11 @@
         props: {
             isChecked: {
                 type:Boolean,
-                default:true
+                default:false
         }
         },
         methods: {
-            BtnClick(){
-                this.$emit('btnClick')
-               if(this.isChecked){
-                   this.isChecked = false
-               }else{
-                   this.isChecked=true
-               }
-
-               console.log('....点击了按钮')
-            }
+          
         }
     }
 </script>
