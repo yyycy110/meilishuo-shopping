@@ -13,8 +13,9 @@
             <goods-list :goods="recommends" ref="recommend"></goods-list>
         </scroll>
 
-         <detail-bottom-bar  @addCart="addToCart" />
+        <detail-bottom-bar @addCart="addToCart" />
         <back-top class="arrive-top" @click.native="backClick" v-show="ifshow" />
+        <toast ></toast>
     </div>
 </template>
 
@@ -24,6 +25,7 @@
 
     import BackTop from 'components/content/backTop/BackTop'
     import Scroll from 'components/common/scroll/Scroll'
+    import Toast from 'components/common/Toast/Toast'
 
     /* 导航条 */
     import DetailNavbar from './ChilComps/DetailNavbar'
@@ -55,7 +57,7 @@
             return {
                 /* 控制 */
                 ifshow: false,
-                currentIndex:0,  
+                currentIndex: 0,
 
                 /* iid 是从Home页传过来的 通过iid 跳转到对应商品的详情页 */
                 iid: null,
@@ -73,7 +75,9 @@
                 comment: {},
                 /* 推荐商品 */
                 recommends: [],
-                themeTopYs: []
+                themeTopYs: [],
+                message: '',
+                show: false
 
 
 
@@ -92,7 +96,8 @@
             DetailParamsInfo,
             DetailComment,
             GoodsList,
-            DetailBottomBar
+            DetailBottomBar,
+            Toast
         },
         created() {
             /* 获取参数iid iid 是通过url传过来的 */
@@ -163,7 +168,7 @@
 
             //监听滚动的位置
             tabScroll(position) {
-              
+
 
                 /* 三元操作符  当滚动的定位 小于一个值的时候 再显示置顶的按钮  */
                 this.ifshow = -position.y > 1000 ? true : false;
@@ -171,14 +176,14 @@
 
                 const positionY = -position.y
                 let length = this.themeTopYs.length;
-                for (let i =0;i<length;i++) {
-                  if((i<length-1 && positionY > this.themeTopYs[i] && positionY < this.themeTopYs[i + 1] ) || (i === length-1&& positionY>this.themeTopYs[i])){
-                    this.currentIndex = i;
-                    this.$refs.nav.currentIndex= this.currentIndex
-                  }
-                    
+                for (let i = 0; i < length; i++) {
+                    if ((i < length - 1 && positionY > this.themeTopYs[i] && positionY < this.themeTopYs[i + 1]) || (i === length - 1 && positionY > this.themeTopYs[i])) {
+                        this.currentIndex = i;
+                        this.$refs.nav.currentIndex = this.currentIndex
+                    }
+
                 }
-            
+
 
 
 
@@ -198,20 +203,29 @@
 
             },
 
-            addToCart(){
+            addToCart() {
                 const product = {}
                 product.image = this.topImages[0]
                 product.title = this.goodsInfo.title
                 product.desc = this.goodsInfo.desc
-                product.lowNowPrice  = this.goodsInfo.lowNowPrice
+                product.lowNowPrice = this.goodsInfo.lowNowPrice
                 product.iid = this.iid
 
 
 
                 /* 把商品添加到购物车 */
-               /*  this.$store.cartList.push(product) */
-                this.$store.dispatch('addCart',product).then(res =>{
-                    console.log(res)
+                /*  this.$store.cartList.push(product) */
+                this.$store.dispatch('addCart', product).then(res => {
+                    /* this.show = true;
+                    this.message = res;
+
+                    setTimeout(() => {
+                        this.message = ''
+                        this.show = false
+                    }, 1500)
+                    console.log(res) */
+
+                    this.$toast.show(res,2000)
                 })
                 console.log("-----点击了")
 
@@ -228,7 +242,7 @@
         left: 0;
         right: 0;
         top: 44px;
-        
+
         bottom: 0;
         background-color: #fff;
     }
@@ -239,7 +253,8 @@
         right: 3px;
         bottom: 70px;
     }
-    .detail{
+
+    .detail {
         height: 100vh;
         position: relative;
         z-index: 20;

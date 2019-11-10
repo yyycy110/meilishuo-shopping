@@ -23,7 +23,7 @@ export default{
             payload.count = 1;
         /*     context.state.cartList.push(payload); */
             context.commit("addTocart",payload)
-            resolve("添加新的商品")
+            resolve("成功添加到购物车")
         }
 
        })

@@ -23,7 +23,7 @@
     export default {
         props: {
             commentInfo: {
-                type: Object,
+                type: Array,
 
             }
         },
